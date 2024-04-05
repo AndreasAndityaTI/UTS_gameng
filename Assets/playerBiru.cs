@@ -9,11 +9,7 @@ public class playerBiru : MonoBehaviour
     void Update()
     {
         // Get the horizontal input (A and D keys)
-        float moveHorizontal = 0f;
-        if (Input.GetKey(KeyCode.A))
-            moveHorizontal = -1f;
-        else if (Input.GetKey(KeyCode.D))
-            moveHorizontal = 1f;
+        float moveHorizontal = Input.GetAxis("Horizontal");
 
         // Calculate the movement direction
         Vector3 movement = Vector3.right * moveHorizontal;

@@ -10,7 +10,7 @@ public class BallController : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        Vector2 arah = new Vector2(-2, 0).normalized;
+        Vector2 arah = new Vector2(0, 2).normalized;
         rigid.AddForce(arah * force);
     }
 
@@ -22,19 +22,19 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.name == "tembokKanan")
+        if (coll.gameObject.name == "TepiKanan")
         {
             ResetBall();
             Vector2 arah = new Vector2(0, 2).normalized;
             rigid.AddForce(arah * force);
         }
-        if (coll.gameObject.name == "tembokKiri")
+        if (coll.gameObject.name == "TepiKiri")
         {
             ResetBall();
             Vector2 arah = new Vector2(0, -2).normalized;
             rigid.AddForce(arah * force);
         }
-if (coll.gameObject.name == "playerMerah" || coll.gameObject.name == "playerBiru")
+if (coll.gameObject.name == "Pemukul1" || coll.gameObject.name == "Pemukul2")
 {
 float sudut = (transform.position.y - coll.transform.position.y) * 5f;
 Vector2 arah = new Vector2(rigid.velocity.x, sudut).normalized;

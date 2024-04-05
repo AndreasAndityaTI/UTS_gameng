@@ -2,22 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallBounce : MonoBehaviour
+public class BallBouncer : MonoBehaviour
 {
-    // Public variables
     public int force;
+    Rigidbody2D rigid;
+    // Speed of the ball
     public float speed = 5f;
 
-    // Private variables
-    private Rigidbody2D rigid;
+    // Start position of the ball
+    private Vector3 startPosition;
+
+    // Direction of the ball
+    private Vector3 direction = Vector3.right;
+
+    // Distance the ball should travel before bouncing back
+    public float distance = 5f;
+
+    // Rigidbody component of the ball
 
     // Start is called before the first frame update
     void Start()
     {
-        // Get the Rigidbody component
-        rigid = GetComponent<Rigidbody2D>();
+        // Store the initial position of the ball
+        //startPosition = transform.position;
 
-        // Launch the ball
+        // Get the Rigidbody component
+        //rb = GetComponent<Rigidbody>();
+        rigid = GetComponent<Rigidbody2D>();
         Vector2 arah = new Vector2(0, 2).normalized;
         rigid.AddForce(arah * force);
     }
@@ -25,23 +36,19 @@ public class BallBounce : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Unused code
+        // Move the ball in the specified direction
+       // rigid.MovePosition(transform.position + direction * speed * Time.deltaTime);
     }
 
-    // OnCollisionEnter2D is called when the ball collides with something
-    private void OnCollisionEnter2D(Collision2D coll)
+    // OnCollisionEnter is called when the ball collides with something
+    private void OnCollisionEnter(Collision coll)
     {
-        // Check if the ball collides with a player
-        if (coll.gameObject.CompareTag("playerMerah") || coll.gameObject.CompareTag("playerBiru"))
+        if (coll.gameObject.name == "Basic Racket (4)" || coll.gameObject.name == "Basic Racket (5)")
         {
-            // Calculate the direction of the bounce based on the collision normal
-            Vector2 bounceDirection = Vector2.Reflect(rigid.velocity.normalized, coll.contacts[0].normal).normalized;
-
-            // Reset the ball's velocity and add force to simulate a bounce
-            rigid.velocity = Vector2.zero;
-            rigid.AddForce(bounceDirection * force, ForceMode2D.Impulse);
-        }
-            Debug.Log("Collision detected with: " + coll.gameObject.name);
-
-    }
+            float sudut = (transform.position.x - coll.transform.position.x) * 5f;
+            Vector2 arah = new Vector2(sudut, rigid.velocity.y).normalized;
+            rigid.velocity = new Vector2(0, 0);
+            rigid.AddForce(arah * force * 4);
+        } // Reverse the direction of the ball
+    }
 }

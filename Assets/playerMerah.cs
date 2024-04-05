@@ -36,6 +36,6 @@ public class playerMerah : MonoBehaviour
 
             // Apply force to the ball to simulate a bounce
             ballRigidbody.AddForce(bounceDirection * speed, ForceMode.Impulse);
-        }
-    }
+        }
+    }
 }
